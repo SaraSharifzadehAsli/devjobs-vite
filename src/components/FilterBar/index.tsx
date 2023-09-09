@@ -1,4 +1,3 @@
-import { useState } from "react";
 import SearchIcon from "@src/components/icons/SearchIcon";
 import LocationIcon from "@src/components/icons/LocationIcon";
 import CheckedIcon from "@src/components/icons/CheckedIcon";
@@ -13,11 +12,25 @@ import {
   Typography,
 } from "./style";
 
-const FilterBar = () => {
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+type FilterBarProps = {
+  isCheckedFulltime: boolean;
+  fulltimeToggle: () => void;
+  location: string;
+  title: string;
+  locationChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  titleChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  toggleModal: () => void;
+};
 
+const FilterBar: React.FC<FilterBarProps> = ({
+  isCheckedFulltime,
+  fulltimeToggle,
+  location,
+  title,
+  locationChangeHandler,
+  titleChangeHandler,
+  toggleModal,
+}) => {
   return (
     <Container>
       <SubContainer $fullWidth>
@@ -27,7 +40,7 @@ const FilterBar = () => {
         <Input
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => titleChangeHandler(e)}
           placeholder="Filter by title, companies, expertise..."
         />
       </SubContainer>
@@ -37,17 +50,14 @@ const FilterBar = () => {
           <Input
             type="text"
             value={location}
-            onChange={(e): void => setLocation(e.target.value)}
+            onChange={(e) => locationChangeHandler(e)}
             placeholder="Filter by location..."
           />
         </SubContainer>
       </View>
       <View view="tablet/desktop">
-        <SubContainer
-          $cursor
-          onClick={() => (isChecked ? setIsChecked(false) : setIsChecked(true))}
-        >
-          {isChecked ? <CheckedIcon /> : <UncheckedIcon />}
+        <SubContainer $cursor onClick={fulltimeToggle}>
+          {isCheckedFulltime ? <CheckedIcon /> : <UncheckedIcon />}
           <View view="desktop">
             <Typography>Full Time Only</Typography>
           </View>
@@ -56,7 +66,7 @@ const FilterBar = () => {
           </View>
         </SubContainer>
       </View>
-      <FilterAction />
+      <FilterAction toggleModal={toggleModal} />
     </Container>
   );
 };

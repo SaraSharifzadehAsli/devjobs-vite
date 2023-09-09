@@ -4,12 +4,19 @@ export const Container = styled.section`
   border-radius: var(--borderRadius);
   background-color: var(--bgColorElements);
   position: relative;
-  width: 350px;
-  height: 228px;
+  flex-basis: 100%;
   padding: 49px 32px 32px;
+
+  @media (min-width: 768px) {
+    flex-basis: 49%;
+  }
+
+  @media (min-width: 1200px) {
+    flex-basis: 31%;
+  }
 `;
 
-export const LogoBG = styled.div<{ logoBackground: string }>`
+export const LogoBG = styled.div<{ $logoBackground: string }>`
   position: absolute;
   z-index: 1;
   top: -25px;
@@ -20,7 +27,7 @@ export const LogoBG = styled.div<{ logoBackground: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.logoBackground};
+  background-color: ${(props) => props.$logoBackground};
 `;
 
 export const Text = styled.p`

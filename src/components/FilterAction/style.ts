@@ -6,6 +6,10 @@ export const FilterActionContainer = styled.div`
   gap: 16px;
 `;
 
+// interface SearchButtonPropsType {
+//   onClick: () => void;
+// }
+
 export const SearchButton = styled.button`
   width: 48px;
   background-color: var(--bgColorButtonOne);

@@ -11,13 +11,43 @@ interface ApiResponse {
   posts: IJobItems;
 }
 
-const Cards = () => {
+interface CardsProps {
+  isCheckedFulltime: boolean;
+  title: string;
+  location: string;
+}
+
+const Cards: React.FC<CardsProps> = ({
+  isCheckedFulltime,
+  title,
+  location,
+}) => {
   const { status, data, isFetchingNextPage, hasNextPage, fetchNextPage } =
     useInfiniteQuery<ApiResponse, Error>({
       queryKey: ["posts", "infinite"],
       getNextPageParam: (prevData) => prevData.nextPage,
       queryFn: ({ pageParam = 1 }) => getPostsPaginated(pageParam),
     });
+
+  const allPosts = data?.pages.flatMap((page) => page.posts) ?? [];
+
+  const displayedData = allPosts.map((post) => {
+    if (
+      (title === "" ||
+        post.company.toLowerCase().includes(title.toLowerCase()) ||
+        post.position.toLowerCase().includes(title.toLowerCase())) &&
+      (location === "" ||
+        post.location.toLowerCase().includes(location.toLowerCase()))
+    ) {
+      if (isCheckedFulltime) {
+        if (post.contract === "Full Time") {
+          return <Card key={post.id} post={post} />;
+        } else return null;
+      }
+      return <Card key={post.id} post={post} />;
+    }
+    return null;
+  });
 
   return (
     <>
@@ -32,11 +62,7 @@ const Cards = () => {
         ) : status === "error" ? (
           <Error>Something went wrong!</Error>
         ) : null}
-        {data?.pages
-          .flatMap((data) => data.posts)
-          .map((post) => (
-            <Card key={post.id} post={post} />
-          ))}
+        {displayedData}
       </Container>
       {hasNextPage && (
         <LoadMore onClick={() => fetchNextPage()}>

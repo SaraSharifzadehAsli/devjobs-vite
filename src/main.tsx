@@ -7,7 +7,13 @@ import Layout from "@src/components/Layout";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 root.render(
   <QueryClientProvider client={queryClient}>

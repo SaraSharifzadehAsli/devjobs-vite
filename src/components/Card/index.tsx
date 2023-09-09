@@ -4,7 +4,7 @@ import { IJobItem } from "@src/types/IJobItems";
 const Card = ({ post }: { post: IJobItem }) => {
   return (
     <Container>
-      <LogoBG logoBackground={post.logoBackground}>
+      <LogoBG $logoBackground={post.logoBackground}>
         <img src={post.logo} alt="post-logo" />
       </LogoBG>
       <Text>

@@ -3,9 +3,9 @@ import { styled } from "styled-components";
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
   margin: 57px 0 32px;
+  gap: 49px 11px;
 
   @media (min-width: 768px) {
     margin: 70px 0 56px;
