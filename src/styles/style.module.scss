@@ -1,0 +1,64 @@
+// Colors
+
+$violet: #5964e0;
+$lightViolet: #939bf4;
+$veryDarkBlue: #19202d;
+$midnight: #121721;
+$white: #fff;
+$lightGray: #f4f6f8;
+$gray: #9daec2;
+$darkGray: #6e8098;
+
+$transition: all 0.2s ease-in;
+
+// mixins
+
+@mixin button($lightTheme: true, $type: 1) {
+  @if $lightTheme {
+    background-color: $violet;
+    @if $type == 1 {
+      color: $white;
+      &:hover {
+        background-color: $lightViolet;
+      }
+    } @else {
+      color: $violet;
+      opacity: 0.1;
+      &:hover {
+        opacity: 0.35;
+      }
+    }
+  } @else {
+    opacity: 0.1;
+    background: $white;
+    color: $white;
+    &:hover {
+      opacity: 0.35;
+    }
+  }
+
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 5px;
+  width: 141px;
+  height: 48px;
+  transition: $transition;
+  cursor: pointer;
+  font: inherit;
+  border: none;
+}
+
+@mixin display(
+  $display,
+  $justifyContent,
+  $alignItems,
+  $flexDirection: row,
+  $gap: unset
+) {
+  display: $display;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  flex-direction: $flexDirection;
+  gap: $gap;
+}
