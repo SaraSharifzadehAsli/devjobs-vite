@@ -4,7 +4,7 @@ export const Container = styled.section`
   border-radius: var(--borderRadius);
   background-color: var(--bgColorElements);
   position: relative;
-  flex-basis: 100%;
+  flex-grow: 1;
   padding: 49px 32px 32px;
 
   @media (min-width: 768px) {

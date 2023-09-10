@@ -1,5 +1,4 @@
-import { styled } from "styled-components";
-// import {ThemeButtonProps} from '@typings/ThemeButton'
+import { styled, css } from "styled-components";
 
 export const ToggleThemeContainer = styled.div`
   display: flex;
@@ -10,7 +9,7 @@ export const ToggleThemeContainer = styled.div`
 
 export interface ThemeButtonProps {
   theme: string;
-  onClick: () => void;
+  isHovered: boolean;
 }
 
 export const ToggleThemeButton = styled.div<ThemeButtonProps>`
@@ -18,7 +17,6 @@ export const ToggleThemeButton = styled.div<ThemeButtonProps>`
   width: 48px;
   height: 24px;
   border-radius: 12px;
-  transition: var(--transition);
   cursor: pointer;
 
   &::before {
@@ -28,10 +26,13 @@ export const ToggleThemeButton = styled.div<ThemeButtonProps>`
     height: 12px;
     border-radius: 50%;
     background-color: var(--colorViolet);
+    transition: var(--transition);
     transform: ${(props) =>
       props.theme === "light" ? "translateX(5px)" : "translateX(32px)"};
-    &:hover {
-      background-color: #939bf4;
-    }
+    ${(props) =>
+      props.isHovered &&
+      css`
+        background-color: var(--bgColorButtonOneHover);
+      `}
   }
 `;

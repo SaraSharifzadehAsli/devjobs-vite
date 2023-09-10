@@ -1,10 +1,10 @@
 import { styled, css } from "styled-components";
 
-export const Container = styled.section`
+export const Container = styled.form`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
-  padding: 16px;
+  /* padding: 16px; */
   gap: 16px;
   height: 80px;
   border-radius: var(--borderRadius);
@@ -19,18 +19,29 @@ export const Input = styled.input`
 export const SubContainer = styled.div<{
   $fullWidth?: boolean;
   $cursor?: boolean;
+  $borderLeft?: boolean;
 }>`
   height: 100%;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin: 0 16px;
+  padding: 16px;
+  padding-left: 32px;
+  /* margin: 0 16px; */
   display: inline-flex;
+
+  ${(props) =>
+    props.$borderLeft &&
+    css`
+      border-left: 1px solid rgba(110, 128, 152, 0.2);
+    `}
 
   ${(props) =>
     props.$fullWidth &&
     css`
-      flex-grow: 1;
+      @media (min-width: 768px) {
+        flex-basis: 40%;
+      }
     `}
 
   ${(props) =>
@@ -58,4 +69,5 @@ export const UncheckedIcon = styled.div`
 export const Typography = styled.p`
   color: var(--colorText);
   font-weight: bold;
+  flex-shrink: 0;
 `;

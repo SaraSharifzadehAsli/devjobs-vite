@@ -15,48 +15,44 @@ import {
 type FilterBarProps = {
   isCheckedFulltime: boolean;
   fulltimeToggle: () => void;
-  location: string;
-  title: string;
-  locationChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  titleChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   toggleModal: () => void;
+  locationRef: React.RefObject<HTMLInputElement>;
+  titleRef: React.RefObject<HTMLInputElement>;
+  submitFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const FilterBar: React.FC<FilterBarProps> = ({
   isCheckedFulltime,
   fulltimeToggle,
-  location,
-  title,
-  locationChangeHandler,
-  titleChangeHandler,
   toggleModal,
+  submitFilter,
+  titleRef,
+  locationRef,
 }) => {
   return (
-    <Container>
+    <Container onSubmit={(e) => submitFilter(e)}>
       <SubContainer $fullWidth>
         <View view="tablet/desktop">
           <SearchIcon />
         </View>
         <Input
           type="text"
-          value={title}
-          onChange={(e) => titleChangeHandler(e)}
           placeholder="Filter by title, companies, expertise..."
+          ref={titleRef}
         />
       </SubContainer>
       <View view="tablet/desktop">
-        <SubContainer>
+        <SubContainer $borderLeft>
           <LocationIcon />
           <Input
             type="text"
-            value={location}
-            onChange={(e) => locationChangeHandler(e)}
             placeholder="Filter by location..."
+            ref={locationRef}
           />
         </SubContainer>
       </View>
       <View view="tablet/desktop">
-        <SubContainer $cursor onClick={fulltimeToggle}>
+        <SubContainer $borderLeft $cursor onClick={fulltimeToggle}>
           {isCheckedFulltime ? <CheckedIcon /> : <UncheckedIcon />}
           <View view="desktop">
             <Typography>Full Time Only</Typography>

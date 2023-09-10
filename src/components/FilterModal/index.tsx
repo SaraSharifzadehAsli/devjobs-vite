@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LocationIcon from "@src/components/icons/LocationIcon";
 import CheckedIcon from "@src/components/icons/CheckedIcon";
 import {
@@ -12,37 +12,48 @@ import {
 } from "./style";
 
 interface FilterModalPropsType {
-  location: string;
-  locationChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isCheckedFulltime: boolean;
   fulltimeToggle: () => void;
   toggleModal: () => void;
+  locationRef: React.RefObject<HTMLInputElement>;
+  submitFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FilterModal: React.FC<FilterModalPropsType> = ({
-  location,
-  locationChangeHandler,
   isCheckedFulltime,
   fulltimeToggle,
   toggleModal,
+  locationRef,
+  submitFilter,
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <BG onClick={toggleModal}>
-      <Container>
-        <SubContainer>
+      <Container
+        onSubmit={(e) => submitFilter(e)}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <SubContainer $borderBottom>
           <LocationIcon />
           <Input
             type="text"
-            value={location}
-            onChange={(e) => locationChangeHandler(e)}
             placeholder="Filter by location..."
+            ref={locationRef}
           />
         </SubContainer>
         <SubContainer $cursor onClick={fulltimeToggle}>
           {isCheckedFulltime ? <CheckedIcon /> : <UncheckedIcon />}
           <Typography>Full Time Only</Typography>
         </SubContainer>
-        <SearchButton>Search</SearchButton>
+        <SearchButton
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          isHovered={isHovered}
+          type="submit"
+        >
+          Search
+        </SearchButton>
       </Container>
     </BG>
   );

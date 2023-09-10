@@ -4,6 +4,7 @@ import { getPostsPaginated } from "@src/api";
 import Card from "@src/components/Card";
 import { Container, Error, LoadMore } from "./style";
 import IJobItems from "@src/types/IJobItems";
+import { useState } from "react";
 
 interface ApiResponse {
   nextPage: number | undefined;
@@ -12,16 +13,12 @@ interface ApiResponse {
 }
 
 interface CardsProps {
-  isCheckedFulltime: boolean;
-  title: string;
-  location: string;
+  displayedData: IJobItems;
 }
 
-const Cards: React.FC<CardsProps> = ({
-  isCheckedFulltime,
-  title,
-  location,
-}) => {
+const Cards: React.FC<CardsProps> = ({ displayedData }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const { status, data, isFetchingNextPage, hasNextPage, fetchNextPage } =
     useInfiniteQuery<ApiResponse, Error>({
       queryKey: ["posts", "infinite"],
@@ -30,24 +27,6 @@ const Cards: React.FC<CardsProps> = ({
     });
 
   const allPosts = data?.pages.flatMap((page) => page.posts) ?? [];
-
-  const displayedData = allPosts.map((post) => {
-    if (
-      (title === "" ||
-        post.company.toLowerCase().includes(title.toLowerCase()) ||
-        post.position.toLowerCase().includes(title.toLowerCase())) &&
-      (location === "" ||
-        post.location.toLowerCase().includes(location.toLowerCase()))
-    ) {
-      if (isCheckedFulltime) {
-        if (post.contract === "Full Time") {
-          return <Card key={post.id} post={post} />;
-        } else return null;
-      }
-      return <Card key={post.id} post={post} />;
-    }
-    return null;
-  });
 
   return (
     <>
@@ -62,10 +41,17 @@ const Cards: React.FC<CardsProps> = ({
         ) : status === "error" ? (
           <Error>Something went wrong!</Error>
         ) : null}
-        {displayedData}
+        {(displayedData.length ? displayedData : allPosts).map((post) => (
+          <Card key={post.id} post={post} />
+        ))}
       </Container>
       {hasNextPage && (
-        <LoadMore onClick={() => fetchNextPage()}>
+        <LoadMore
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          isHovered={isHovered}
+          onClick={() => fetchNextPage()}
+        >
           {isFetchingNextPage ? "Loading..." : "Load more"}
         </LoadMore>
       )}

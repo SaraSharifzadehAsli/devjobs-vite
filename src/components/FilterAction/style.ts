@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled, css } from "styled-components";
 
 export const FilterActionContainer = styled.div`
   display: flex;
@@ -10,13 +10,20 @@ export const FilterActionContainer = styled.div`
 //   onClick: () => void;
 // }
 
-export const SearchButton = styled.button`
+export const SearchButton = styled.button<{ isHovered: boolean }>`
   width: 48px;
   background-color: var(--bgColorButtonOne);
   color: var(--colorButtonOne);
   border-radius: var(--borderRadius);
   flex-shrink: 1;
   height: 48px;
+  margin: 16px;
+
+  ${(props) =>
+    props.isHovered &&
+    css`
+      background-color: var(--bgColorButtonOneHover);
+    `}
 
   @media (min-width: 768px) and (max-width: 1200px) {
     width: 80px;

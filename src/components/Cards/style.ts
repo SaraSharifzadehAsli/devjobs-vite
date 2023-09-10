@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled, css } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -22,14 +22,17 @@ export const Error = styled.h1`
   color: var(--colorText);
 `;
 
-export const LoadMore = styled.button`
+export const LoadMore = styled.button<{ isHovered: boolean }>`
   background-color: var(--bgColorButtonOne);
   color: var(--colorButtonOne);
   margin: 0 auto 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  &:hover {
-    background-color: var(--bgColorButtonOneHover);
-  }
+
+  ${(props) =>
+    props.isHovered &&
+    css`
+      background-color: var(--bgColorButtonOneHover);
+    `}
 `;
