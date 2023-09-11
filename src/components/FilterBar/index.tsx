@@ -18,7 +18,7 @@ type FilterBarProps = {
   toggleModal: () => void;
   locationRef: React.RefObject<HTMLInputElement>;
   titleRef: React.RefObject<HTMLInputElement>;
-  submitFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  submitFilter: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
 const FilterBar: React.FC<FilterBarProps> = ({

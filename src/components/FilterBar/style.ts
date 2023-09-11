@@ -4,7 +4,6 @@ export const Container = styled.form`
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  /* padding: 16px; */
   gap: 16px;
   height: 80px;
   border-radius: var(--borderRadius);
@@ -27,7 +26,6 @@ export const SubContainer = styled.div<{
   gap: 16px;
   padding: 16px;
   padding-left: 32px;
-  /* margin: 0 16px; */
   display: inline-flex;
 
   ${(props) =>

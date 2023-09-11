@@ -12,14 +12,9 @@ export const BG = styled.div`
 
 export const Container = styled.form`
   width: 327px;
-  /* height: 217px; */
   background-color: var(--bgColorElements);
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
-  /* align-items: center; */
-  /* padding: 24px; */
-  /* padding-top: 0; */
   border-radius: var(--borderRadius);
   position: fixed;
   top: 50%;
@@ -33,7 +28,6 @@ export const SubContainer = styled.div<{
   $borderBottom?: boolean;
 }>`
   padding: 30px 24px;
-  /* height: 72px; */
   align-items: center;
   display: inline-flex;
   gap: 16px;
@@ -75,7 +69,7 @@ export const Typography = styled.p`
   font-weight: bold;
 `;
 
-export const SearchButton = styled.button<{ isHovered: boolean }>`
+export const SearchButton = styled.button<{ $isHovered: boolean }>`
   margin: 0 24px 24px;
   width: 279px;
   background-color: var(--bgColorButtonOne);
@@ -85,7 +79,7 @@ export const SearchButton = styled.button<{ isHovered: boolean }>`
   flex-shrink: 0;
 
   ${(props) =>
-    props.isHovered &&
+    props.$isHovered &&
     css`
       background-color: var(--bgColorButtonOneHover);
     `}

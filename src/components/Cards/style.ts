@@ -22,7 +22,7 @@ export const Error = styled.h1`
   color: var(--colorText);
 `;
 
-export const LoadMore = styled.button<{ isHovered: boolean }>`
+export const LoadMore = styled.button<{ $isHovered: boolean }>`
   background-color: var(--bgColorButtonOne);
   color: var(--colorButtonOne);
   margin: 0 auto 60px;
@@ -31,7 +31,7 @@ export const LoadMore = styled.button<{ isHovered: boolean }>`
   justify-content: center;
 
   ${(props) =>
-    props.isHovered &&
+    props.$isHovered &&
     css`
       background-color: var(--bgColorButtonOneHover);
     `}

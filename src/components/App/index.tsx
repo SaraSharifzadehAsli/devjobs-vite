@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useInfiniteQuery } from "react-query";
 import { getPostsPaginated } from "@src/api";
 import FilterBar from "@src/components/FilterBar";
@@ -14,6 +14,7 @@ interface ApiResponse {
 
 const App: React.FC = () => {
   const [isCheckedFulltime, setIsCheckedFulltime] = useState(false);
+  const [isFilterSubmitted, setIsFilterSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [displayedData, setDisplayedData] = useState<IJobItems>([]);
   const locationRef = useRef<HTMLInputElement>(null);
@@ -27,37 +28,41 @@ const App: React.FC = () => {
 
   const allPosts = data?.pages.flatMap((page) => page.posts) ?? [];
 
-  const submitFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
-    setDisplayedData([]);
-
-    if (titleRef.current && locationRef.current) {
-      allPosts.map((post) => {
-        if (
-          (post.company
+  const applyFilter = () => {
+    const filteredData = allPosts.filter((post) => {
+      if (
+        (titleRef.current?.value === "" ||
+          post.company
             .toLowerCase()
-            .includes(titleRef.current.value.toLowerCase()) ||
-            post.position
-              .toLowerCase()
-              .includes(titleRef.current.value.toLowerCase())) &&
+            .includes((titleRef.current?.value || "").toLowerCase()) ||
+          post.position
+            .toLowerCase()
+            .includes((titleRef.current?.value || "").toLowerCase())) &&
+        (locationRef.current?.value === "" ||
           post.location
             .toLowerCase()
-            .includes(locationRef.current.value.toLowerCase())
-        ) {
-          if (isCheckedFulltime) {
-            if (post.contract === "Full Time") {
-              setDisplayedData((prevData) => [...prevData, post]);
-            } else return null;
-          }
-          setDisplayedData((prevData) => [...prevData, post]);
-        }
-        return null;
-      });
-    }
+            .includes((locationRef.current?.value || "").toLowerCase())) &&
+        (!isCheckedFulltime || post.contract === "Full Time")
+      ) {
+        return true;
+      }
+      return false;
+    });
 
-    locationRef.current.value = "";
-    titleRef.current.value = "";
+    return filteredData;
+  };
+
+  useEffect(() => {
+    if (isFilterSubmitted) {
+      setDisplayedData(applyFilter());
+    } else {
+      setDisplayedData(allPosts);
+    }
+  }, [data, isFilterSubmitted]);
+
+  const submitFilter = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsFilterSubmitted(!isFilterSubmitted);
   };
 
   const fulltimeToggle = () => {

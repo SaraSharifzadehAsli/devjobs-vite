@@ -6,11 +6,7 @@ export const FilterActionContainer = styled.div`
   gap: 16px;
 `;
 
-// interface SearchButtonPropsType {
-//   onClick: () => void;
-// }
-
-export const SearchButton = styled.button<{ isHovered: boolean }>`
+export const SearchButton = styled.button<{ $isHovered: boolean }>`
   width: 48px;
   background-color: var(--bgColorButtonOne);
   color: var(--colorButtonOne);
@@ -20,7 +16,7 @@ export const SearchButton = styled.button<{ isHovered: boolean }>`
   margin: 16px;
 
   ${(props) =>
-    props.isHovered &&
+    props.$isHovered &&
     css`
       background-color: var(--bgColorButtonOneHover);
     `}

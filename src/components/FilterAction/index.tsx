@@ -19,7 +19,7 @@ const FilterAction: React.FC<FilterActionPropTypes> = ({ toggleModal }) => {
       <SearchButton
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        isHovered={isHovered}
+        $isHovered={isHovered}
         type="submit"
       >
         <View view="mobile">

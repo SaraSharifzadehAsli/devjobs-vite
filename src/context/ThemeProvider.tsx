@@ -33,8 +33,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 export const useTheme = () => {
   const theme = useContext(ThemeContext);
 
-  console.log(theme);
-
   if (!theme) {
     throw new Error("useTheme has to be used within ThemeProvider");
   }

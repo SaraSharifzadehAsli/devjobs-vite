@@ -14,7 +14,7 @@ const ToggleTheme = () => {
       <ToggleThemeButton
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        isHovered={isHovered}
+        $isHovered={isHovered}
         onClick={toggleTheme}
         theme={theme}
       />

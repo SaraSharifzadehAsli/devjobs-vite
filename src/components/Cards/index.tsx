@@ -49,7 +49,7 @@ const Cards: React.FC<CardsProps> = ({ displayedData }) => {
         <LoadMore
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          isHovered={isHovered}
+          $isHovered={isHovered}
           onClick={() => fetchNextPage()}
         >
           {isFetchingNextPage ? "Loading..." : "Load more"}

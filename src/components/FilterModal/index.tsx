@@ -16,7 +16,7 @@ interface FilterModalPropsType {
   fulltimeToggle: () => void;
   toggleModal: () => void;
   locationRef: React.RefObject<HTMLInputElement>;
-  submitFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  submitFilter: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const FilterModal: React.FC<FilterModalPropsType> = ({
@@ -49,7 +49,7 @@ const FilterModal: React.FC<FilterModalPropsType> = ({
         <SearchButton
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          isHovered={isHovered}
+          $isHovered={isHovered}
           type="submit"
         >
           Search

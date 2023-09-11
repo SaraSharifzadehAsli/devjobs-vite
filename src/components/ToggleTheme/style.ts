@@ -9,7 +9,7 @@ export const ToggleThemeContainer = styled.div`
 
 export interface ThemeButtonProps {
   theme: string;
-  isHovered: boolean;
+  $isHovered: boolean;
 }
 
 export const ToggleThemeButton = styled.div<ThemeButtonProps>`
@@ -30,7 +30,7 @@ export const ToggleThemeButton = styled.div<ThemeButtonProps>`
     transform: ${(props) =>
       props.theme === "light" ? "translateX(5px)" : "translateX(32px)"};
     ${(props) =>
-      props.isHovered &&
+      props.$isHovered &&
       css`
         background-color: var(--bgColorButtonOneHover);
       `}
