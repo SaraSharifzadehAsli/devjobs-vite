@@ -5,6 +5,7 @@ export const Container = styled.section`
   background-color: var(--bgColorElements);
   position: relative;
   flex-basis: 100%;
+  cursor: pointer;
   /* flex-grow: 1; */
   padding: 49px 32px 32px;
 

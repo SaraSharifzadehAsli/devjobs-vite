@@ -17,7 +17,7 @@ export const GlobalStyles = createGlobalStyle`
         --colorCheckBoxHover: #eeeffc;
 
         --transition: all 0.2s ease-in;
-        --borderRadius: 5px;
+        --borderRadius: 6px;
     }
 
     body {
@@ -68,18 +68,15 @@ export const GlobalStyles = createGlobalStyle`
         text-decoration: none;
     }
 
-    li {
-        list-style-type: none;
-    }
-
     body[data-theme = "light"] {
         --bgColorButtonTwo: #eeeffc;
         --bgColorButtonTwoHover: #c5c9f4;
-        --colorButtonTwo: var(--violet);
+        --colorButtonTwo: var(--colorViolet);
         --bgColorApp: var(--colorLightGray);
         background-color: var(--bgColorApp);
         --bgColorElements: var(--colorWhite);
         --colorText: var(--colorVeryDarkBlue);
+        --colorTextNormal: var(--colorDarkGray);
         --colorCheckBox: #e7e8e9;
     }
 
@@ -91,6 +88,7 @@ export const GlobalStyles = createGlobalStyle`
         background-color: var(--bgColorApp);
         --bgColorElements: var(--colorVeryDarkBlue);
         --colorText: var(--colorWhite);
+        --colorTextNormal: #9DAEC2;
         --colorCheckBox: #313743;
     }
 `;
