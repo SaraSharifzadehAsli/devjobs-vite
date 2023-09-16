@@ -1,16 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useInfiniteQuery } from "react-query";
-import { getPostsPaginated } from "@src/api";
 import FilterBar from "@src/components/FilterBar";
 import Cards from "@src/components/Cards";
 import FilterModal from "@src/components/FilterModal";
 import IJobItems from "@src/types/IJobItems";
-
-interface ApiResponse {
-  nextPage: number | undefined;
-  previousPage: number | undefined;
-  posts: IJobItems;
-}
+import { useAllPosts } from "@src/hooks/useAllPosts";
 
 const App: React.FC = () => {
   const [isCheckedFulltime, setIsCheckedFulltime] = useState(false);
@@ -20,16 +13,10 @@ const App: React.FC = () => {
   const locationRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
 
-  const { data } = useInfiniteQuery<ApiResponse, Error>({
-    queryKey: ["posts", "infinite"],
-    getNextPageParam: (prevData) => prevData.nextPage,
-    queryFn: ({ pageParam = 1 }) => getPostsPaginated(pageParam),
-  });
-
-  const allPosts = data?.pages.flatMap((page) => page.posts) ?? [];
+  const { allPosts } = useAllPosts();
 
   const applyFilter = () => {
-    const filteredData = allPosts.filter((post) => {
+    const filteredData = allPosts?.filter((post) => {
       if (
         (titleRef.current?.value === "" ||
           post.company
@@ -58,7 +45,7 @@ const App: React.FC = () => {
     } else {
       setDisplayedData(allPosts);
     }
-  }, [data, isFilterSubmitted]);
+  }, [allPosts, isFilterSubmitted]);
 
   const submitFilter = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

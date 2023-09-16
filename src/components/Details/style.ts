@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 export const Container = styled.section`
   max-width: 730px;
   margin: auto;
-  position: relative;
+  /* position: relative; */
 `;
 export const Header = styled.header`
   position: relative;
@@ -189,13 +189,30 @@ export const ApplyButton = styled.a`
   }
 `;
 
-export const Footer = styled(Header)`
-  /* position: absolute; */
-  /* width: 100vw; */
-  /* bottom: -176px;
+export const Footer = styled.footer`
+  position: absolute;
+  width: 100%;
   right: 0;
-  left: 0; */
-  /* padding: 23px 355px; */
+  left: 0;
+  bottom: -176px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bgColorElements);
+`;
+
+export const FooterContent = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+
+  @media (min-width: 768px) {
+    width: 730px;
+    margin: 0 40px;
+    padding: 24px 0;
+  }
 `;
 
 export const SubFooter = styled(Content)`
@@ -208,5 +225,11 @@ export const SubFooter = styled(Content)`
     justify-content: center;
     align-items: flex-start;
     gap: 12px;
+  }
+`;
+
+export const LogoImg = styled.img`
+  @media (min-width: 768px) {
+    width: 70px;
   }
 `;

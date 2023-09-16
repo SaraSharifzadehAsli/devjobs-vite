@@ -14,6 +14,9 @@ import {
   ApplyButton,
   Footer,
   SubFooter,
+  LogoImg,
+  FooterContent,
+  // FooterContent,
 } from "./style";
 
 const Details = () => {
@@ -24,7 +27,7 @@ const Details = () => {
     <Container>
       <Header>
         <LogoBG $logoBackground={post.logoBackground}>
-          <img style={{ width: "70px" }} src={post.logo} alt="post-logo" />
+          <LogoImg src={post.logo} alt="post-logo" />
         </LogoBG>
         <Content>
           <Typography $bold $fs="24px">
@@ -84,13 +87,15 @@ const Details = () => {
         </ol>
       </Main>
       <Footer>
-        <SubFooter>
-          <Typography $bold $fs="20px">
-            {post.position}
-          </Typography>
-          <Typography $fs="16px">So Digital Inc.</Typography>
-        </SubFooter>
-        <ApplyButton href={post.website}>Apply Now</ApplyButton>
+        <FooterContent>
+          <SubFooter>
+            <Typography $bold $fs="20px">
+              {post.position}
+            </Typography>
+            <Typography $fs="16px">So Digital Inc.</Typography>
+          </SubFooter>
+          <ApplyButton href={post.website}>Apply Now</ApplyButton>
+        </FooterContent>
       </Footer>
     </Container>
   );

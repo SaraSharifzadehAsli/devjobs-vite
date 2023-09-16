@@ -24,7 +24,7 @@ root.render(
           <Route path="/" element={<Layout />}>
             <Route index element={<App />} />
             <Route path="details/:id" element={<Details />} />
-            {/* <Route path="*" element={<NoPage />} /> */}
+            <Route path="*" element={<div>no page</div>} />
           </Route>
         </Routes>
       </BrowserRouter>

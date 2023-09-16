@@ -1,6 +1,12 @@
 import axios from "axios";
 import IJobItems from "@src/types/IJobItems";
 
+// interface ApiResponse {
+//   nextPage: number | undefined;
+//   previousPage: number | undefined;
+//   posts: IJobItems;
+// }
+
 export function getPostsPaginated(page: number) {
   return axios
     .get("http://localhost:3001/items", {
