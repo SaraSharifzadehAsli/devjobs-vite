@@ -32,7 +32,7 @@ const App: React.FC = () => {
           post.location
             .toLowerCase()
             .includes((location || "").toLowerCase())) &&
-        (!isCheckedFulltime || post.contract === "Full Time")
+        (!isFulltime || post.contract === "Full Time")
       ) {
         return true;
       }
@@ -62,9 +62,9 @@ const App: React.FC = () => {
     e.preventDefault();
     setQuery(
       {
-        title: titleRef.current?.value,
-        location: locationRef.current?.value,
-        isFulltime: isCheckedFulltime,
+        title: titleRef.current?.value || undefined,
+        location: locationRef.current?.value || undefined,
+        isFulltime: isCheckedFulltime || undefined,
       },
       "replace"
     );
