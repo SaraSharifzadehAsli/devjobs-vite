@@ -4,31 +4,34 @@ import Cards from "@src/components/Cards";
 import FilterModal from "@src/components/FilterModal";
 import IJobItems from "@src/types/IJobItems";
 import { useAllPosts } from "@src/hooks/useAllPosts";
+import { useQueryParams, StringParam, BooleanParam } from "use-query-params";
 
 const App: React.FC = () => {
   const [isCheckedFulltime, setIsCheckedFulltime] = useState(false);
-  const [isFilterSubmitted, setIsFilterSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [displayedData, setDisplayedData] = useState<IJobItems>([]);
   const locationRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
+  const [query, setQuery] = useQueryParams({
+    title: StringParam,
+    location: StringParam,
+    isFulltime: BooleanParam,
+  });
+
+  const { title, location, isFulltime } = query;
 
   const { allPosts } = useAllPosts();
 
   const applyFilter = () => {
     const filteredData = allPosts?.filter((post) => {
       if (
-        (titleRef.current?.value === "" ||
-          post.company
-            .toLowerCase()
-            .includes((titleRef.current?.value || "").toLowerCase()) ||
-          post.position
-            .toLowerCase()
-            .includes((titleRef.current?.value || "").toLowerCase())) &&
-        (locationRef.current?.value === "" ||
+        (title === "" ||
+          post.company.toLowerCase().includes((title || "").toLowerCase()) ||
+          post.position.toLowerCase().includes((title || "").toLowerCase())) &&
+        (location === "" ||
           post.location
             .toLowerCase()
-            .includes((locationRef.current?.value || "").toLowerCase())) &&
+            .includes((location || "").toLowerCase())) &&
         (!isCheckedFulltime || post.contract === "Full Time")
       ) {
         return true;
@@ -40,16 +43,31 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isFilterSubmitted) {
-      setDisplayedData(applyFilter());
-    } else {
-      setDisplayedData(allPosts);
+    setDisplayedData(applyFilter());
+  }, [title, location, isFulltime, allPosts]);
+
+  useEffect(() => {
+    if (title && titleRef.current) {
+      titleRef.current.value = title;
     }
-  }, [allPosts, isFilterSubmitted]);
+    if (location && locationRef.current) {
+      locationRef.current.value = location;
+    }
+    if (isFulltime) {
+      setIsCheckedFulltime(isFulltime);
+    }
+  }, []);
 
   const submitFilter = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsFilterSubmitted(!isFilterSubmitted);
+    setQuery(
+      {
+        title: titleRef.current?.value,
+        location: locationRef.current?.value,
+        isFulltime: isCheckedFulltime,
+      },
+      "replace"
+    );
   };
 
   const fulltimeToggle = () => {

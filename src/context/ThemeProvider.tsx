@@ -1,4 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  PropsWithChildren,
+} from "react";
 
 type Theme = "light" | "dark";
 type ThemeContext = { theme: Theme; toggleTheme: () => void };
@@ -13,7 +18,7 @@ const isDarkModePreferred = window.matchMedia(
 
 const initialState = isDarkModePreferred ? "dark" : "light";
 
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [theme, setTheme] = useState<Theme>(initialState);
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
