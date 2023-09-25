@@ -9,29 +9,46 @@ interface CardsProps {
   displayedData: IJobItems;
 }
 
+enum Status {
+  ERROR = "error",
+  LOADING = "loading",
+  SUCCESS = "success",
+}
+
 const Cards: React.FC<CardsProps> = ({ displayedData }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { status, isFetchingNextPage, hasNextPage, fetchNextPage, allPosts } =
     useAllPosts();
 
-  return (
-    <>
-      <Container>
-        {status === "loading" ? (
+  const handleStatus = () => {
+    switch (status) {
+      case Status.LOADING:
+        return (
           <ReactLoading
             type="bubbles"
             color="#5964e0"
             height={128}
             width={128}
           />
-        ) : status === "error" ? (
-          <Error>Something went wrong!</Error>
-        ) : null}
-        {(displayedData?.length ? displayedData : allPosts).map((post) => (
-          <Card key={post.id} post={post} />
-        ))}
-      </Container>
+        );
+
+      case Status.ERROR:
+        return <Error>Something went wrong!</Error>;
+
+      case Status.SUCCESS:
+        return (displayedData?.length ? displayedData : allPosts).map(
+          (post) => <Card key={post.id} post={post} />
+        );
+
+      default:
+        break;
+    }
+  };
+
+  return (
+    <>
+      <Container>{handleStatus()}</Container>
       {hasNextPage && (
         <LoadMore
           onMouseEnter={() => setIsHovered(true)}
